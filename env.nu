@@ -101,28 +101,28 @@ use std "path add"
 
 let distro = (sys host | get name)
 
-if $distro == 'Darwin' {
-    path add "/opt/homebrew/bin"
+let bins = [
+    "/usr/local/bin"
+    "/opt/homebrew/bin"
+    "/home/linuxbrew/.linuxbrew/bin"
+    "/home/linuxbrew/.linuxbrew/bin"
+    ($env.HOME | path join .local/bin)
+    ($env.HOME | path join go/bin)
+    ($env.HOME | path join .cargo/bin)
+] | where (path exists)
+$env.PATH = ($env.PATH | split row (char esep) | prepend $bins)
+
+if ($env.HOME | path join .bun | path exists) {
+    $env.BUN_INSTALL = ( $env.HOME | path join .bun )
+    path add ($env.HOME | path join .bun/bin)
 }
-if $distro == 'Linux' {
-    path add "/home/linuxbrew/.linuxbrew/bin"
-}
-
-path add ($env.HOME | path join .local/bin)
-
-path add ($env.HOME | path join go/bin)
-
-path add ($env.HOME | path join .cargo/bin)
-
-$env.BUN_INSTALL = ( $env.HOME | path join .bun )
-path add ($env.HOME | path join .bun/bin)
 
 if not (which fnm | is-empty) {
     fnm env --json | from json | load-env
     $env.FNM_BIN = ($env.FNM_DIR | path join bin)
     $env.FNM_MULTISHELL_PATH = ($env.FNM_DIR | path join nodejs)
     path add $env.FNM_BIN
-    let node_path = if $distro == 'Windows' {
+    let node_path = if $distro == "Windows" {
         $env.FNM_MULTISHELL_PATH
     } else {
         $env.FNM_MULTISHELL_PATH | path join bin

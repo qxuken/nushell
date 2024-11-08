@@ -298,7 +298,7 @@ $env.config = {
         env_change: {
           PWD: [{ |before, after|
             if ('FNM_DIR' in $env) and ([.nvmrc .node-version] | path exists | any { |it| $it }) {
-              fnm use
+              fnm use --install-if-missing
             }
           }]
         }
@@ -902,4 +902,11 @@ $env.config = {
     ]
 }
 
+if not (which vivid | is-empty) {
+    $env.LS_COLORS = (vivid generate dracula)
+}
 source ~/.cache/carapace/init.nu
+source ~/.zoxide.nu
+use ~/.cache/starship/init.nu
+
+alias ll = ls -al
