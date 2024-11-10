@@ -833,7 +833,6 @@ $env.config = {
 }
 
 # TODO: replace with modules
-
 source ~/.zoxide.nu
 source ~/.cache/carapace/init.nu
 use ~/.cache/starship/init.nu
@@ -848,4 +847,5 @@ if not ("~/.cache/starship/init.nu" | path exists) {
     print 'starship not found'
 }
 
-alias ll = ls -al
+use ./aliases.nu *
+
