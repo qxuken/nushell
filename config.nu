@@ -902,11 +902,20 @@ $env.config = {
     ]
 }
 
-if not (which vivid | is-empty) {
-    $env.LS_COLORS = (vivid generate dracula)
-}
-source ~/.cache/carapace/init.nu
+# TODO: replace with modules
+
 source ~/.zoxide.nu
+source ~/.cache/carapace/init.nu
 use ~/.cache/starship/init.nu
+
+if not ("~/.cache/carapace/init.nu" | path exists) {
+    print 'carapace not found'
+}
+if not ("~/.zoxide.nu" | path exists) {
+    print 'zoxide not found'
+}
+if not ("~/.cache/starship/init.nu" | path exists) {
+    print 'starship not found'
+}
 
 alias ll = ls -al

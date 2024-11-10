@@ -101,20 +101,22 @@ use std "path add"
 
 let distro = (sys host | get name)
 
-let bins = [
-    "/usr/local/bin"
-    "/opt/homebrew/bin"
-    "/home/linuxbrew/.linuxbrew/bin"
-    "/home/linuxbrew/.linuxbrew/bin"
-    ($env.HOME | path join .local/bin)
-    ($env.HOME | path join go/bin)
-    ($env.HOME | path join .cargo/bin)
-] | where (path exists)
-$env.PATH = ($env.PATH | split row (char esep) | prepend $bins)
+if $distro != "Windows" {
+    let bins = [
+        "/usr/local/bin"
+        "/opt/homebrew/bin"
+        "/home/linuxbrew/.linuxbrew/bin"
+        "/home/linuxbrew/.linuxbrew/bin"
+        ($env.HOME | path join .local/bin)
+        ($env.HOME | path join go/bin)
+        ($env.HOME | path join .cargo/bin)
+    ] | where (path exists)
+    $env.PATH = ($env.PATH | split row (char esep) | prepend $bins)
 
-if ($env.HOME | path join .bun | path exists) {
-    $env.BUN_INSTALL = ( $env.HOME | path join .bun )
-    path add ($env.HOME | path join .bun/bin)
+    if ($env.HOME | path join .bun | path exists) {
+        $env.BUN_INSTALL = ( $env.HOME | path join .bun )
+        path add ($env.HOME | path join .bun/bin)
+    }
 }
 
 if not (which fnm | is-empty) {
@@ -128,7 +130,12 @@ if not (which fnm | is-empty) {
         $env.FNM_MULTISHELL_PATH | path join bin
     }
     path add $node_path
+} else {
+    print 'fnm not found'
 }
 
-# To load from a custom file you can use:
-# source ($nu.default-config-dir | path join 'custom.nu')
+if not (which vivid | is-empty) {
+    $env.LS_COLORS = (vivid generate dracula)
+} else {
+    print 'vivid not found'
+}
