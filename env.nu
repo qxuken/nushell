@@ -135,7 +135,7 @@ if not (which fnm | is-empty) {
 }
 
 if not (which vivid | is-empty) {
-    $env.LS_COLORS = (vivid generate molokai)
+    $env.LS_COLORS = (vivid generate ayu)
 } else {
     print 'vivid not found'
 }
