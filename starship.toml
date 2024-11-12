@@ -1,5 +1,5 @@
 # [metadata]
-# name = "dawnfox"
+# name = "nightfox"
 # author = "wjohnsto"
 # origin_url = "https://github.com/EdenEast/nightfox.nvim"
 
@@ -21,21 +21,21 @@ $golang\
 [](fg:lang_bg bg:background)\
 \n$character"""
 
-palette = "dawnfox"
+palette = "nightfox"
 
-[palettes.dawnfox]
-red = "#b4637a"
-green = "#618774"
-purple = "#907aa9"
-yellow = "#ea9d34"
-os_bg = "#a8a3b3"
-os_fg = "#ebe5df"
-dir_bg = "#618774"
-dir_fg = "#faf4ed"
-git_bg = "#ea9d34"
-git_fg = "#ebe0df"
-lang_bg = "#286983"
-lang_fg = "#ebdfe4"
+[palettes.nightfox]
+red = "#c94f6d"
+green = "#81b29a"
+purple = "#9d79d6"
+yellow = "#dbc074"
+os_bg = "#71839b"
+os_fg = "#131a24"
+dir_bg = "#81b29a"
+dir_fg = "#192330"
+git_bg = "#dbc074"
+git_fg = "#212e3f"
+lang_bg = "#719cd6"
+lang_fg = "#29394f"
 
 [os]
 disabled = false
@@ -137,8 +137,8 @@ format = '[[ $symbol( $version) ](fg:lang_fg bg:lang_bg)]($style)'
 
 [character]
 disabled = false
-success_symbol = '[](bold fg:#618774)'
-error_symbol = '[](bold fg:#b4637a)'
+success_symbol = '[](bold fg:#81b29a)'
+error_symbol = '[](bold fg:#c94f6d)'
 vimcmd_symbol = '[](bold fg:green)'
 vimcmd_replace_one_symbol = '[](bold fg:purple)'
 vimcmd_replace_symbol = '[](bold fg:purple)'

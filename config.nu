@@ -8,7 +8,9 @@
 # use ./themes/spacedust.nu
 # use ./themes/ocean-dark.nu
 # use ./themes/catppuccin-mocha.nu
-use ./themes/dawnfox.nu [dawnfox_theme]
+# use ./themes/dawnfox.nu [dawnfox_theme]
+use ./themes/nightfox.nu [nightfox_theme]
+
 
 
 $env.config = {
@@ -99,7 +101,7 @@ $env.config = {
         vi_normal: underscore # block, underscore, line, blink_block, blink_underscore, blink_line, inherit to skip setting cursor shape (underscore is the default)
     }
 
-    color_config: $dawnfox_theme # if you want a more interesting theme, you can replace the empty record with `$dark_theme`, `$light_theme` or another custom record
+    color_config: $nightfox_theme # if you want a more interesting theme, you can replace the empty record with `$dark_theme`, `$light_theme` or another custom record
     footer_mode: 25 # always, never, number_of_rows, auto
     float_precision: 2 # the precision for displaying floats in tables
     buffer_editor: null # command that will be used to edit the current line buffer with ctrl+o, if unset fallback to $env.EDITOR and $env.VISUAL
@@ -770,7 +772,7 @@ $env.config = {
 # TODO: replace with modules
 source ~/.zoxide.nu
 source ~/.cache/carapace/init.nu
-$env.STARSHIP_CONFIG = "~/.config/nushell/starship.toml"
+
 use ~/.cache/starship/init.nu
 
 if not ("~/.cache/carapace/init.nu" | path exists) {
