@@ -178,4 +178,5 @@ if not ("~/.cache/starship/init.nu" | path exists) {
 
 use ./aliases.nu *
 use ./yazi.nu *
+source ./opam.nu
 
