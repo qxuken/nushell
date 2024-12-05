@@ -110,6 +110,7 @@ if $distro != "Windows" {
         ($env.HOME | path join .local/bin)
         ($env.HOME | path join go/bin)
         ($env.HOME | path join .cargo/bin)
+        ($env.HOME | path join bin)
     ] | where (path exists)
     $env.PATH = ($env.PATH | split row (char esep) | prepend $bins)
 
