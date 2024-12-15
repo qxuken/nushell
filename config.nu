@@ -3,16 +3,10 @@
 # version = "0.99.1"
 
 # https://github.com/nushell/nu_scripts/tree/main/themes
-# use ./themes/catppuccin-latte.nu [make_catppuccin_latte_theme]
-# let catppuccin_latte_theme = make_catppuccin_latte_theme
-# use ./themes/spacedust.nu
-# use ./themes/ocean-dark.nu
-# use ./themes/catppuccin-mocha.nu
-# use ./themes/dawnfox.nu [dawnfox_theme]
-use ./themes/nightfox.nu [nightfox_theme]
+use ./themes/rose-pine.nu
 
-use ./keybinds.nu [keybinds]
-use ./menus.nu [menus]
+use ./config/keybinds.nu [keybinds]
+use ./config/menus.nu [menus]
 
 $env.config = {
     show_banner: false # true or false to enable or disable the welcome banner at startup
@@ -102,7 +96,7 @@ $env.config = {
         vi_normal: underscore # block, underscore, line, blink_block, blink_underscore, blink_line, inherit to skip setting cursor shape (underscore is the default)
     }
 
-    color_config: $nightfox_theme
+    color_config: (rose-pine)
     footer_mode: 25 # always, never, number_of_rows, auto
     float_precision: 2 # the precision for displaying floats in tables
     buffer_editor: null # command that will be used to edit the current line buffer with ctrl+o, if unset fallback to $env.EDITOR and $env.VISUAL
@@ -160,23 +154,26 @@ $env.config = {
     keybindings: $keybinds
 }
 
+
+
+use ./config/aliases.nu *
+
 # TODO: replace with modules
-source ~/.zoxide.nu
-source ~/.cache/carapace/init.nu
+source ./apps/zoxide.nu
+source ./apps/carapace.nu
 
 use ~/.cache/starship/init.nu
 
-if not ("~/.cache/carapace/init.nu" | path exists) {
+if (which carapace | is-empty) {
     print 'carapace not found'
 }
-if not ("~/.zoxide.nu" | path exists) {
+if (which zoxide | is-empty) {
     print 'zoxide not found'
 }
-if not ("~/.cache/starship/init.nu" | path exists) {
+if (which starship | is-empty) {
     print 'starship not found'
 }
 
-use ./aliases.nu *
-use ./yazi.nu *
-source ./opam.nu
+use ./apps/yazi.nu *
+source ./apps/opam.nu
 
