@@ -21,5 +21,6 @@ export def --env t [dir_name?: string] {
 
 # MacOS fix
 export alias nopen = open
+export alias no = open
 export alias open = ^open
 
