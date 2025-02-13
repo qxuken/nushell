@@ -67,5 +67,9 @@ if not (which vivid | is-empty) {
     print 'vivid not found'
 }
 
+if not (which starship | is-empty) {
+    $env.CARAPACE_BRIDGES = 'zsh,fish,bash,inshellisense'
+}
+
 $env.EDITOR = 'nvim'
 
