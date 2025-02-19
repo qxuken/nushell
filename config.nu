@@ -177,3 +177,5 @@ if (which starship | is-empty) {
 use ./apps/yazi.nu *
 source ./apps/opam.nu
 
+source ~/.local.nu
+
