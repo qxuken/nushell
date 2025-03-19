@@ -19,8 +19,8 @@ export def --env t [dir_name?: string] {
     l .. | where name == $"../($dir_name)"
 }
 
-# MacOS fix
-export alias nopen = open
+# # MacOS fix
+# export alias nopen = open
 export alias no = open
-export alias open = ^open
+# export alias open = ^open
 
