@@ -31,8 +31,9 @@ if $distro != "Windows" {
     let bins = [
         "/usr/local/bin"
         "/opt/homebrew/bin"
+        "/opt/homebrew/opt/ruby/bin"
         "/home/linuxbrew/.linuxbrew/bin"
-        "/home/linuxbrew/.linuxbrew/bin"
+        "/home/linuxbrew/.linuxbrew/opt/ruby/bin"
         ($env.HOME | path join .local/bin)
         ($env.HOME | path join go/bin)
         ($env.HOME | path join .cargo/bin)
@@ -46,7 +47,11 @@ if $distro != "Windows" {
     }
 }
 
-if not (which fnm | is-empty) {
+if (which gem | is-not-empty) {
+    path add (gem environment gemdir)
+}
+
+if (which fnm | is-not-empty) {
     fnm env --json | from json | load-env
     $env.FNM_BIN = ($env.FNM_DIR | path join bin)
     $env.FNM_MULTISHELL_PATH = ($env.FNM_DIR | path join nodejs)
@@ -61,13 +66,13 @@ if not (which fnm | is-empty) {
     print 'fnm not found'
 }
 
-if not (which vivid | is-empty) {
+if (which vivid | is-not-empty) {
     $env.LS_COLORS = (vivid generate tokyonight-storm)
 } else {
     print 'vivid not found'
 }
 
-if not (which starship | is-empty) {
+if (which starship | is-not-empty) {
     $env.CARAPACE_BRIDGES = 'zsh,fish,bash,inshellisense'
 }
 
