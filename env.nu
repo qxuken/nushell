@@ -11,6 +11,7 @@ $env.NU_LIB_DIRS = [
 
 $env.NU_PLUGIN_DIRS = [
     ($nu.default-config-dir | path join 'plugins') # add <nushell-config-dir>/plugins
+    ($nu.current-exe | path dirname)
 ]
 
 let distro = (sys host | get name)
@@ -25,7 +26,6 @@ $env.ENV_CONVERSIONS = {
         to_string: { |v| $v | path expand --no-symlink | str join (char esep) }
     }
 }
-
 
 if $distro != "Windows" {
     let bins = [
@@ -64,12 +64,6 @@ if (which fnm | is-not-empty) {
     path add $node_path
 } else {
     print 'fnm not found'
-}
-
-if (which vivid | is-not-empty) {
-    $env.LS_COLORS = (vivid generate tokyonight-storm)
-} else {
-    print 'vivid not found'
 }
 
 if (which starship | is-not-empty) {

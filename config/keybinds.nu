@@ -482,6 +482,14 @@ export const keybinds = [
         # event: { edit: copyselectionsystem }
     }
     {
+        name: copy_selection
+        modifier: none
+        keycode: char_y
+        mode: vi_normal
+        event: { edit: copyselection }
+        # event: { edit: copyselectionsystem }
+    }
+    {
         name: cut_selection
         modifier: control_shift
         keycode: char_x

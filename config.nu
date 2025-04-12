@@ -2,11 +2,9 @@
 #
 # version = "0.99.1"
 
-# https://github.com/nushell/nu_scripts/tree/main/themes
-use ./themes/rose-pine.nu
-
 use ./config/keybinds.nu [keybinds]
 use ./config/menus.nu [menus]
+use ./config/completers.nu [external_completer]
 
 $env.config = {
     show_banner: false # true or false to enable or disable the welcome banner at startup
@@ -75,12 +73,12 @@ $env.config = {
         case_sensitive: false # set to true to enable case-sensitive completions
         quick: true    # set this to false to prevent auto-selecting completions when only one remains
         partial: true    # set this to false to prevent partial filling of the prompt
-        algorithm: "prefix"    # prefix or fuzzy
+        algorithm: "fuzzy"    # prefix or fuzzy
         sort: "smart" # "smart" (alphabetical for prefix matching, fuzzy score for fuzzy matching) or "alphabetical"
         external: {
             enable: true # set to false to prevent nushell looking into $env.PATH to find more suggestions, `false` recommended for WSL users as this look up may be very slow
             max_results: 100 # setting it lower can improve completion performance at the cost of omitting some options
-            completer: null # check 'carapace_completer' above as an example
+            completer: (external_completer) # check 'carapace_completer' above as an example
         }
         use_ls_colors: true # set this to true to enable file/path/directory completions using LS_COLORS
     }
@@ -95,14 +93,12 @@ $env.config = {
         vi_insert: block # block, underscore, line, blink_block, blink_underscore, blink_line, inherit to skip setting cursor shape (block is the default)
         vi_normal: underscore # block, underscore, line, blink_block, blink_underscore, blink_line, inherit to skip setting cursor shape (underscore is the default)
     }
-
-    color_config: (rose-pine)
     footer_mode: 25 # always, never, number_of_rows, auto
     float_precision: 2 # the precision for displaying floats in tables
     buffer_editor: null # command that will be used to edit the current line buffer with ctrl+o, if unset fallback to $env.EDITOR and $env.VISUAL
     use_ansi_coloring: true
     bracketed_paste: true # enable bracketed paste, currently useless on windows
-    edit_mode: emacs # emacs, vi
+    edit_mode: vi # emacs, vi
     shell_integration: {
         osc2: true
         osc7: true
@@ -154,14 +150,14 @@ $env.config = {
     keybindings: $keybinds
 }
 
-
-
 use ./config/aliases.nu *
 
 # TODO: replace with modules
 source ./apps/zoxide.nu
-source ./apps/carapace.nu
 
+if (which carapace | is-not-empty) and not ('~/.cache/starship/init.nu' | path exists) {
+    starship init nu | save ~/.cache/starship/init.nu
+}
 use ~/.cache/starship/init.nu
 
 if (which carapace | is-empty) {
@@ -176,8 +172,7 @@ if (which starship | is-empty) {
 
 use ./apps/yazi.nu *
 source ./apps/opam.nu
-
-source ./config/completers.nu
+source ./config/theme.nu
 
 source ~/.local.nu
 
