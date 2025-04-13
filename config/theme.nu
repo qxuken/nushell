@@ -16,14 +16,21 @@ def is-dark [] {
 }
 
 export def --env rt [] {
-    $env.config.color_config = if (is-dark) {
+    let is_dark = is-dark
+
+    $env.TERM_APEARANCE = if $is_dark {
+        'Dark'
+    } else {
+        'Light'
+    }
+    $env.config.color_config = if $is_dark {
         (catppuccin-mocha)
     } else {
         (catppuccin-latte)
     }
 
     if (which vivid | is-not-empty) {
-        $env.LS_COLORS = if (is-dark) {
+        $env.LS_COLORS = if $is_dark {
             (vivid generate catppuccin-mocha)
         } else {
             (vivid generate catppuccin-latte)
