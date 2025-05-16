@@ -10,6 +10,7 @@ export alias gs = git status
 export alias gp = git push
 export alias gg = git pull
 export alias gc = git commit
+export alias ga = git add
 
 # take command from zsh
 export def --env t [dir_name?: string] {
