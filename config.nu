@@ -170,9 +170,12 @@ if (which starship | is-empty) {
     print 'starship not found'
 }
 
-use ./apps/yazi.nu *
-source ./apps/opam.nu
 source ./config/theme.nu
 
+use ./apps/yazi.nu *
+source ./apps/opam.nu
+
 source ~/.local.nu
+
+# use ./apps/conda.nu
 
