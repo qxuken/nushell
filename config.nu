@@ -175,6 +175,8 @@ source ./config/theme.nu
 use ./apps/yazi.nu *
 source ./apps/opam.nu
 
+use ./scripts/load_dotenv.nu *
+
 source ~/.local.nu
 
 # use ./apps/conda.nu
