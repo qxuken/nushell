@@ -4,7 +4,7 @@
 
 use ./config/keybinds.nu [keybinds]
 use ./config/menus.nu [menus]
-use ./config/completers.nu [external_completer]
+use ./config/completers.nu *
 
 $env.config = {
     show_banner: false # true or false to enable or disable the welcome banner at startup

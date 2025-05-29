@@ -1,3 +1,5 @@
+# export use '../apps/jwt.nu' *
+
 # https://www.nushell.sh/cookbook/external_completers.html#alias-completions
 export def external_completer [] {
     let fish_completer = {|spans|
@@ -34,6 +36,8 @@ export def external_completer [] {
             git => $fish_completer
             brew => $fish_completer
             node => $fish_completer
+            deno => $fish_completer
+            bun => $fish_completer
             yarn => $fish_completer
             # carapace doesn't have completions for asdf
             asdf => $fish_completer
