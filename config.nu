@@ -103,7 +103,7 @@ $env.config = {
         osc2: true
         osc7: true
         osc8: true
-        osc9_9: true
+        osc9_9: ((sys host | get name) == 'Windows')
         # NOTE: Open issue https://github.com/nushell/nushell/issues/5585
         osc133: ("WEZTERM_PANE" not-in $env and "WSL_DISTRO_NAME" not-in $env)
         osc633: true
