@@ -4,6 +4,8 @@
 
 use std "path add"
 
+const env_conf_path = path self .
+
 $env.NU_LIB_DIRS = [
     ($nu.default-config-dir | path join 'scripts') # add <nushell-config-dir>/scripts
     ($nu.data-dir | path join 'completions') # default home for nushell completions
@@ -45,11 +47,22 @@ if $distro != "Windows" {
         $env.BUN_INSTALL = ( $env.HOME | path join .bun )
         path add ($env.HOME | path join .bun/bin)
     }
+
+    if (which brew | is-not-empty ) {
+        $env.LIBRARY_PATH = $env
+        | get LIBRARY_PATH -i
+        | default ''
+        | split row (char esep)
+        | where { is-not-empty }
+        | append $"(brew --prefix)/lib"
+        | str join (char esep)
+    }
+
+    if (which gem | is-not-empty) {
+        path add (gem environment gemdir)
+    }
 }
 
-if (which gem | is-not-empty) {
-    path add (gem environment gemdir)
-}
 
 if (which fnm | is-not-empty) {
     fnm env --json | from json | load-env
@@ -67,6 +80,10 @@ if (which fnm | is-not-empty) {
 }
 
 if (which starship | is-not-empty) {
+    $env.STARSHIP_CONFIG = ($env_conf_path | path join 'apps' 'starship.toml')
+}
+
+if (which carapace | is-not-empty) {
     $env.CARAPACE_BRIDGES = 'zsh,fish,bash,inshellisense'
 }
 
