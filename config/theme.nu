@@ -4,6 +4,9 @@ use ../themes/catppuccin-mocha.nu
 # https://github.com/nushell/nu_scripts/tree/main/themes
 
 def is-dark [] {
+    if ((sys host | get name) == 'Windows') {
+        return true
+    }
     let res = term query $'(ansi osc)11;?(ansi st)' --prefix $'(ansi osc)11;' --terminator (ansi st)
     | decode
     | parse "rgb:{r}/{g}/{b}"
