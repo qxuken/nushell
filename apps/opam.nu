@@ -4,7 +4,7 @@ def --env opam-env [] {
 	load-env $opam_env
 }
 
-if not (which opam | is-empty) {
-	opam-env
-}
+# if not (which opam | is-empty) {
+# 	opam-env
+# }
 

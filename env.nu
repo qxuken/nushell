@@ -16,7 +16,7 @@ $env.NU_PLUGIN_DIRS = [
     ($nu.current-exe | path dirname)
 ]
 
-let distro = (sys host | get name)
+$env.HOST_OS_NAME = (sys host | get name)
 # NOTE: The conversions happen *after* config.nu is loaded
 $env.ENV_CONVERSIONS = {
     "PATH": {
@@ -29,7 +29,7 @@ $env.ENV_CONVERSIONS = {
     }
 }
 
-if $distro != "Windows" {
+if $env.HOST_OS_NAME != "Windows" {
     let bins = [
         "/usr/local/bin"
         "/opt/homebrew/bin"
@@ -69,7 +69,7 @@ if (which fnm | is-not-empty) {
     $env.FNM_BIN = ($env.FNM_DIR | path join bin)
     $env.FNM_MULTISHELL_PATH = ($env.FNM_DIR | path join nodejs)
     path add $env.FNM_BIN
-    let node_path = if $distro == "Windows" {
+    let node_path = if $env.HOST_OS_NAME == "Windows" {
         $env.FNM_MULTISHELL_PATH
     } else {
         $env.FNM_MULTISHELL_PATH | path join bin
@@ -79,13 +79,9 @@ if (which fnm | is-not-empty) {
     print 'fnm not found'
 }
 
-if (which starship | is-not-empty) {
-    $env.STARSHIP_CONFIG = ($env_conf_path | path join 'apps' 'starship.toml')
-}
+$env.STARSHIP_CONFIG = ($env_conf_path | path join 'apps' 'starship.toml')
 
-if (which carapace | is-not-empty) {
-    $env.CARAPACE_BRIDGES = 'zsh,fish,bash,inshellisense'
-}
+$env.CARAPACE_BRIDGES = 'zsh,fish,bash,inshellisense'
 
 $env.EDITOR = 'nvim'
 

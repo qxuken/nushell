@@ -103,7 +103,7 @@ $env.config = {
         osc2: true
         osc7: true
         osc8: true
-        osc9_9: ((sys host | get name) == 'Windows')
+        osc9_9: ($env.HOST_OS_NAME == 'Windows')
         # NOTE: Open issue https://github.com/nushell/nushell/issues/5585
         osc133: ("WEZTERM_PANE" not-in $env and "WSL_DISTRO_NAME" not-in $env)
         osc633: true
@@ -155,20 +155,20 @@ use ./config/aliases.nu *
 # TODO: replace with modules
 source ./apps/zoxide.nu
 
-if (which carapace | is-not-empty) and not ('~/.cache/starship/init.nu' | path exists) {
+if not ('~/.cache/starship/init.nu' | path exists) {
     starship init nu | save ~/.cache/starship/init.nu
 }
 use ~/.cache/starship/init.nu
 
-if (which carapace | is-empty) {
-    print 'carapace not found'
-}
-if (which zoxide | is-empty) {
-    print 'zoxide not found'
-}
-if (which starship | is-empty) {
-    print 'starship not found'
-}
+# if (which carapace | is-empty) {
+#     print 'carapace not found'
+# }
+# if (which zoxide | is-empty) {
+#     print 'zoxide not found'
+# }
+# if (which starship | is-empty) {
+#     print 'starship not found'
+# }
 
 source ./config/theme.nu
 

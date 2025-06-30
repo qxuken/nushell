@@ -1,10 +1,12 @@
 use ../themes/catppuccin-latte.nu
 use ../themes/catppuccin-mocha.nu
+use ../themes/catppuccin-latte-ls.nu
+use ../themes/catppuccin-mocha-ls.nu
 
 # https://github.com/nushell/nu_scripts/tree/main/themes
 
 def is-dark [] {
-    if ((sys host | get name) == 'Windows') {
+    if ($env.HOST_OS_NAME == 'Windows') {
         return true
     }
     let res = term query $'(ansi osc)11;?(ansi st)' --prefix $'(ansi osc)11;' --terminator (ansi st)
@@ -21,25 +23,14 @@ def is-dark [] {
 export def --env rt [] {
     let is_dark = is-dark
 
-    $env.TERM_APEARANCE = if $is_dark {
-        'Dark'
+    if $is_dark {
+        $env.TERM_APEARANCE = 'Dark'
+        $env.config.color_config = catppuccin-mocha
+        $env.LS_COLORS = $catppuccin_mocha_ls.colors
     } else {
-        'Light'
-    }
-    $env.config.color_config = if $is_dark {
-        (catppuccin-mocha)
-    } else {
-        (catppuccin-latte)
-    }
-
-    if (which vivid | is-not-empty) {
-        $env.LS_COLORS = if $is_dark {
-            (vivid generate catppuccin-mocha)
-        } else {
-            (vivid generate catppuccin-latte)
-        }
-    } else {
-        print 'vivid not found'
+        $env.TERM_APEARANCE = 'Light'
+        $env.config.color_config = catppuccin-latte
+        $env.LS_COLORS = $catppuccin_latte_ls.colors
     }
 }
 
