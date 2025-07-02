@@ -6,10 +6,12 @@ use ../themes/catppuccin-mocha-ls.nu
 # https://github.com/nushell/nu_scripts/tree/main/themes
 
 def is-dark [] {
-    if ($env.HOST_OS_NAME == 'Windows') {
-        return true
+    let terminator = if $env.HOST_OS_NAME == 'Darwin' and ($env | get -i WEZTERM_UNIX_SOCKET | is-not-empty) {
+        ansi st
+    } else {
+        char bel
     }
-    let res = term query $'(ansi osc)11;?(ansi st)' --prefix $'(ansi osc)11;' --terminator (ansi st)
+    let res = term query $'(ansi osc)11;?(ansi st)' --prefix $'(ansi osc)11;' --terminator $terminator
     | decode
     | parse "rgb:{r}/{g}/{b}"
     | into record
