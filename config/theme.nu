@@ -7,7 +7,7 @@ use ../themes/catppuccin-mocha-ls.nu
 # https://github.com/nushell/nu_scripts/tree/main/themes
 
 def is-dark [] {
-    if (env-has WSL_DISTRO_NAME) {
+    if (env-has WSL_DISTRO_NAME) or ($env.HOST_OS_NAME == 'Windows') {
         return true
     }
     let terminator = if ($env.HOST_OS_NAME == 'Darwin' and ((env-has WEZTERM_UNIX_SOCKET) or (env-has ITERM_PROFILE) or (env-has GHOSTTY_BIN_DIR))) or $env.HOST_OS_NAME == 'Linux' {
