@@ -50,7 +50,7 @@ if $env.HOST_OS_NAME != "Windows" {
 
     if (which brew | is-not-empty ) {
         $env.LIBRARY_PATH = $env
-        | get LIBRARY_PATH -i
+        | get LIBRARY_PATH -o
         | default ''
         | split row (char esep)
         | where { is-not-empty }
