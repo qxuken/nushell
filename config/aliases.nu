@@ -12,11 +12,12 @@ export alias gg = git pull
 export alias gc = git commit
 export alias ga = git add
 
-export alias f = fossil
-export alias fu = fossil update # Used for pulling and checkouting branches
-export alias fa = fossil addremove # Add files
-export alias fc = fossil commit # Create new revision
-export alias fbn = fossil branch new # Create new branch
+export alias f   = fossil
+export alias fo  = fossil open ./repo.fossil    # Open ./repo.fossil file
+export alias fu  = fossil update                # Used for pulling and checkouting branches
+export alias fa  = fossil addremove             # Add files
+export alias fc  = fossil commit                # Create new revision
+export alias fbn = fossil branch new            # Create new branch
 
 # take command from zsh
 export def --env t [dir_name?: string] {
