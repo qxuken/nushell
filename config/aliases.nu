@@ -18,6 +18,7 @@ export alias fu  = fossil update                # Used for pulling and checkouti
 export alias fa  = fossil addremove             # Add files
 export alias fc  = fossil commit                # Create new revision
 export alias fbn = fossil branch new            # Create new branch
+export def fb [] { fossil diff | bat } # Pipe output of a diff to bat
 
 # take command from zsh
 export def --env t [dir_name?: string] {
