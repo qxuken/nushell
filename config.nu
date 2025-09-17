@@ -176,6 +176,7 @@ use ./apps/yazi.nu *
 source ./apps/opam.nu
 
 use ./scripts/load_dotenv.nu *
+use ./scripts/convert_to_webp.nu *
 
 source ~/.local.nu
 
