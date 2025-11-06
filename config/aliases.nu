@@ -18,11 +18,12 @@ export alias fu  = fossil update                # Used for pulling and checkouti
 export alias fa  = fossil addremove             # Add files
 export alias fc  = fossil commit                # Create new revision
 export alias fbn = fossil branch new            # Create new branch
+export def fb [] { fossil diff | bat }          # Pipe output of a diff to bat
+# Initialize new fossil repo
 export def fi [repo: cell-path = ./repo.fossil] {
     fossil new $repo
     fossil open -f -k $repo
 }
-export def fb [] { fossil diff | bat } # Pipe output of a diff to bat
 
 # take command from zsh
 export def --env t [dir_name?: string] {
@@ -37,3 +38,6 @@ export def --env t [dir_name?: string] {
 export alias no = open
 # export alias open = ^open
 
+export def python  [...args] { uv run -- python ...$args }
+export def python3 [...args] { uv run -- python ...$args }
+export def pip     [...args] { uv run -- python -m pip ...$args }

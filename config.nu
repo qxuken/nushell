@@ -181,4 +181,5 @@ use ./scripts/convert_to_webp.nu *
 source ~/.local.nu
 
 # use ./apps/conda.nu
+use ./apps/uv.nu *
 
